@@ -2,11 +2,10 @@ package lotto.Model;
 
 import lotto.Lotto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.round;
 
 public class LottoResultAnnouncer {
     private List<Lotto> releasedLottos;
@@ -22,5 +21,20 @@ public class LottoResultAnnouncer {
         for (Lotto lotto: releasedLottos)
                 lottoRankResults.add(lotto.compareWithWinningLotto(winningLotto));
         return lottoRankResults.stream().collect(Collectors.groupingBy(e -> e, Collectors.summingInt(e -> 1)));
+    }
+
+    public double calculateTotalRateOfReturn(Map<LottoRank, Integer> lottoRankResults) {
+        long totalWinningPrize = 0L;
+        List<LottoRank> a = new ArrayList<>(lottoRankResults.keySet());
+        List<Integer> b = lottoRankResults.values().stream().toList();
+        for (int i = 0; i < lottoRankResults.size(); i++) {
+            totalWinningPrize += a.get(i).getWinnings() * (long) b.get(i);
+        }
+        return getTotalRateOfReturn(totalWinningPrize, releasedLottos.size());
+    }
+
+    private double getTotalRateOfReturn(long totalWinningPrize, int lottoAmount){
+        double rawTotalRateOfReturn = (double) totalWinningPrize / ((double) (lottoAmount * Lotto.COST)) * 100;
+        return (round(rawTotalRateOfReturn * 100.0) / 100.0);
     }
 }

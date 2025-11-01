@@ -29,7 +29,8 @@ public class LottoController {
         WinningLotto winningLotto = new WinningLotto(firstPrizeLotto.getNumbers(), bonusNumber);
         LottoResultAnnouncer lottoResultAnnouncer = new LottoResultAnnouncer(releasedLottos, winningLotto);
         Map<LottoRank, Integer> result = lottoResultAnnouncer.getLottoRankResults();
-        outputView.printLottoResults(result);
+        double totalRateOfReturn = lottoResultAnnouncer.calculateTotalRateOfReturn(result);
+        outputView.printLottoResults(result, totalRateOfReturn);
     }
 
     private int getPurchaseInput() {
