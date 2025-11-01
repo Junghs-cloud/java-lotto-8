@@ -8,6 +8,19 @@ public enum LottoRank {
     Fifth("3개 일치 (5,000원)", 5000),
     Lose("낙첨", 0);
 
+    private final String description;
+    private final int winnings;
+
     LottoRank(String description, int winnings) {
+        this.description = description;
+        this.winnings = winnings;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public int getWinnings() {
+        return this.winnings;
     }
 }

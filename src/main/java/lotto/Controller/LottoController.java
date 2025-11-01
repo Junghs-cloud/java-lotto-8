@@ -8,6 +8,7 @@ import lotto.Lotto;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -23,9 +24,12 @@ public class LottoController {
         int purchaseAmount = getPurchaseInput();
         int lottoAmount = purchaseAmount / Lotto.COST;
         releaseLottos(lottoAmount);
-        List<Integer> firstPrizeLotto = getFirstPrizeLotto();
-        int bonusNumber = getBonusNumber(new Lotto(firstPrizeLotto));
-        WinningLotto winningLotto = new WinningLotto(firstPrizeLotto, bonusNumber);
+        Lotto firstPrizeLotto = getFirstPrizeLotto();
+        int bonusNumber = getBonusNumber(firstPrizeLotto);
+        WinningLotto winningLotto = new WinningLotto(firstPrizeLotto.getNumbers(), bonusNumber);
+        LottoResultAnnouncer lottoResultAnnouncer = new LottoResultAnnouncer(releasedLottos, winningLotto);
+        Map<LottoRank, Integer> result = lottoResultAnnouncer.getLottoRankResults();
+        outputView.printLottoResults(result);
     }
 
     private int getPurchaseInput() {
@@ -40,14 +44,14 @@ public class LottoController {
         }
     }
 
-    private List<Integer> getFirstPrizeLotto() {
+    private Lotto getFirstPrizeLotto() {
         while (true) {
             try {
                 String inputWinningLotto = inputView.getFirstPrizeNumbers();
                 String[] rawLottoNumbers = inputWinningLotto.split(LOTTO_SPLIT_DELIMITER);
                 InputValidater.validateFirstPrizeNumbers(List.of(rawLottoNumbers));
                 IntStream rawLottoNumbersStream = Arrays.stream(rawLottoNumbers).mapToInt(Integer::parseInt);
-                return rawLottoNumbersStream.boxed().toList();
+                return new Lotto(rawLottoNumbersStream.boxed().toList());
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
             }
