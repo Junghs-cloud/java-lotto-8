@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static lotto.Model.InputValidater.validatePurchaseAmount;
+
 public class LottoController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
@@ -30,7 +32,7 @@ public class LottoController {
         while (true) {
             try {
                 String purchaseAmount = inputView.getPurchaseAmount();
-                //검증
+                InputValidater.validatePurchaseAmount(purchaseAmount);
                 return Integer.parseInt(purchaseAmount);
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
@@ -43,7 +45,7 @@ public class LottoController {
             try {
                 String inputWinningLotto = inputView.getFirstPrizeNumbers();
                 String[] rawLottoNumbers = inputWinningLotto.split(LOTTO_SPLIT_DELIMITER);
-                //검증
+                InputValidater.validateFirstPrizeNumbers(List.of(rawLottoNumbers));
                 IntStream rawLottoNumbersStream = Arrays.stream(rawLottoNumbers).mapToInt(Integer::parseInt);
                 List<Integer> lottoNumbers = rawLottoNumbersStream.boxed().toList();
                 return new Lotto(lottoNumbers);
@@ -57,7 +59,7 @@ public class LottoController {
         while (true) {
             try {
                 String inputBonusNumber = inputView.getBonusNumber();
-                //검증
+                InputValidater.validateBonusNumber(firstPrizeLotto, inputBonusNumber);
                 return Integer.parseInt(inputBonusNumber);
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
