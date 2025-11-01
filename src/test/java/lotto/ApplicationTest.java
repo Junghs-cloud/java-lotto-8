@@ -54,6 +54,63 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void testPurchaseAmountNotDivisible() {
+        assertSimpleTest(() -> {
+            runException("3500");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void testWinningLottoNotNumeric() {
+        assertSimpleTest(() -> {
+            runException("3000", "a,1,2,3,4");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void testWinningLottoNotSize6() {
+        assertSimpleTest(() -> {
+            runException("3000", "1,2,3,4,5,6,7");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void testWinningLottoNotInLottoRange() {
+        assertSimpleTest(() -> {
+            runException("3000", "1,2,3,4,5,47");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+
+    @Test
+    void testBonusNumberNotNumeric() {
+        assertSimpleTest(() -> {
+            runException("3000", "1,2,3,4,5,6", "abc");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void testBonusNumberDuplicateWithWinningLotto() {
+        assertSimpleTest(() -> {
+            runException("3000", "1,2,3,4,5,6", "6");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
+    @Test
+    void testBonusNumberNotInLottoRange() {
+        assertSimpleTest(() -> {
+            runException("3000", "1,2,3,4,5,6", "47");
+            assertThat(output()).contains(ERROR_MESSAGE);
+        });
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});

@@ -1,6 +1,10 @@
 package lotto;
 
+import java.util.Collections;
 import java.util.List;
+
+import lotto.Model.ErrorMessages;
+import lotto.Model.InputValidater;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -16,7 +20,14 @@ public class Lotto {
 
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+            throw new IllegalArgumentException(ErrorMessages.NUMBERS_SIZE_NOT_VALIDATE);
+        }
+        if (Collections.min(numbers) < MIN_VALUE || Collections.max(numbers) > MAX_VALUE) {
+            throw new IllegalArgumentException(ErrorMessages.INPUT_NOT_BETWEEN_LOTTO_NUM);
+        }
+        boolean hasDuplicated = numbers.stream().distinct().count() != numbers.size();
+        if (hasDuplicated) {
+            throw new IllegalArgumentException(ErrorMessages.INPUT_NUMBERS_DUPLICATED);
         }
     }
 
