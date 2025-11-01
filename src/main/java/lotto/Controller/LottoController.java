@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static lotto.Model.InputValidater.validatePurchaseAmount;
-
 public class LottoController {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
@@ -24,8 +22,9 @@ public class LottoController {
     public void execute() {
         int purchaseAmount = getPurchaseInput();
         int lottoAmount = purchaseAmount / Lotto.COST;
-        Lotto firstPrizeLotto = getFirstPrizeLotto();
-        int bonusNumber = getBonusNumber(firstPrizeLotto);
+        List<Integer> firstPrizeLotto = getFirstPrizeLotto();
+        int bonusNumber = getBonusNumber(new Lotto(firstPrizeLotto));
+        WinningLotto winningLotto = new WinningLotto(firstPrizeLotto, bonusNumber);
     }
 
     private int getPurchaseInput() {
@@ -40,15 +39,14 @@ public class LottoController {
         }
     }
 
-    private Lotto getFirstPrizeLotto() {
+    private List<Integer> getFirstPrizeLotto() {
         while (true) {
             try {
                 String inputWinningLotto = inputView.getFirstPrizeNumbers();
                 String[] rawLottoNumbers = inputWinningLotto.split(LOTTO_SPLIT_DELIMITER);
                 InputValidater.validateFirstPrizeNumbers(List.of(rawLottoNumbers));
                 IntStream rawLottoNumbersStream = Arrays.stream(rawLottoNumbers).mapToInt(Integer::parseInt);
-                List<Integer> lottoNumbers = rawLottoNumbersStream.boxed().toList();
-                return new Lotto(lottoNumbers);
+                return rawLottoNumbersStream.boxed().toList();
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
             }

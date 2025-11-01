@@ -21,6 +21,10 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException(ErrorMessages.NUMBERS_SIZE_NOT_VALIDATE);
@@ -39,7 +43,7 @@ public class Lotto {
     }
 
     public LottoRank compareWithWinningLotto(WinningLotto winningLotto) {
-        List<Integer> firstPrizeNumbers = winningLotto.getFirstPrizeNumbers();
+        List<Integer> firstPrizeNumbers = winningLotto.getNumbers();
         int bonusNumber = winningLotto.getBonusNumber();
         int numberMatchCount = getMatchCount(firstPrizeNumbers);
         return getLottoRank(bonusNumber, numberMatchCount);
