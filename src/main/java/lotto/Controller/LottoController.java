@@ -22,6 +22,7 @@ public class LottoController {
     public void execute() {
         int purchaseAmount = getPurchaseInput();
         int lottoAmount = purchaseAmount / Lotto.COST;
+        releaseLottos(lottoAmount);
         List<Integer> firstPrizeLotto = getFirstPrizeLotto();
         int bonusNumber = getBonusNumber(new Lotto(firstPrizeLotto));
         WinningLotto winningLotto = new WinningLotto(firstPrizeLotto, bonusNumber);
@@ -63,5 +64,10 @@ public class LottoController {
                 System.out.println(exception.getMessage());
             }
         }
+    }
+
+    private void releaseLottos(int lottoAmount) {
+        RandomLottoMaker.makeLottos(releasedLottos, lottoAmount);
+        outputView.printLottos(releasedLottos);
     }
 }
