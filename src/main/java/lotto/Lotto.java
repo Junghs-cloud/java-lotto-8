@@ -1,13 +1,10 @@
 package lotto;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import lotto.Model.ErrorMessages;
-import lotto.Model.WinningLotto;
-import lotto.Model.LottoRank;
+import lotto.Model.InputValidater;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -36,32 +33,5 @@ public class Lotto {
 
     public boolean checkIfMatchBonusNumber(int bonusNumber) {
         return numbers.contains(bonusNumber);
-    }
-
-    public LottoRank compareWithWinningLotto(WinningLotto winningLotto) {
-        List<Integer> firstPrizeNumbers = winningLotto.getFirstPrizeNumbers();
-        int bonusNumber = winningLotto.getBonusNumber();
-        int numberMatchCount = getMatchCount(firstPrizeNumbers);
-        return getLottoRank(bonusNumber, numberMatchCount);
-    }
-
-    private int getMatchCount(List<Integer> firstPrizeNumbers) {
-        Set<Integer> common = new HashSet<>(this.numbers);
-        common.retainAll(firstPrizeNumbers);
-        return common.size();
-    }
-
-    private LottoRank getLottoRank(int bonusNumber, int numberMatchCount) {
-        if (numberMatchCount == 6)
-            return LottoRank.First;
-        if (numberMatchCount == 5 && checkIfMatchBonusNumber(bonusNumber))
-            return LottoRank.Second;
-        if (numberMatchCount == 5 && !checkIfMatchBonusNumber(bonusNumber))
-            return LottoRank.Third;
-        if (numberMatchCount == 4)
-            return LottoRank.Fourth;
-        if (numberMatchCount == 3)
-            return LottoRank.Fifth;
-        return LottoRank.Lose;
     }
 }
