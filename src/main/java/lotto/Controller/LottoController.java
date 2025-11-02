@@ -23,7 +23,6 @@ public class LottoController {
         int purchaseAmount = getPurchaseInput();
         int lottoAmount = purchaseAmount / Lotto.COST;
         Lotto firstPrizeLotto = getFirstPrizeLotto();
-        int bonusNumber = getBonusNumber(firstPrizeLotto);
     }
 
     private int getPurchaseInput() {
@@ -33,7 +32,7 @@ public class LottoController {
                 //검증
                 return Integer.parseInt(purchaseAmount);
             } catch (IllegalArgumentException exception) {
-                System.out.println(exception.getMessage());
+                System.out.println("[ERROR] 입력 값은 정수여야 합니다.");
             }
         }
     }
@@ -48,19 +47,7 @@ public class LottoController {
                 List<Integer> lottoNumbers = rawLottoNumbersStream.boxed().toList();
                 return new Lotto(lottoNumbers);
             } catch (IllegalArgumentException exception) {
-                System.out.println(exception.getMessage());
-            }
-        }
-    }
-
-    private int getBonusNumber(Lotto firstPrizeLotto) {
-        while (true) {
-            try {
-                String inputBonusNumber = inputView.getBonusNumber();
-                //검증
-                return Integer.parseInt(inputBonusNumber);
-            } catch (IllegalArgumentException exception) {
-                System.out.println(exception.getMessage());
+                System.out.println("[ERROR] 입력 값은 정수여야 합니다.");
             }
         }
     }
