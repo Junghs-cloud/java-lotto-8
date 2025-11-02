@@ -1,14 +1,18 @@
 package lotto.Model;
 
 import java.util.List;
-import lotto.Lotto;
 
-public class WinningLotto extends Lotto {
+public class WinningLotto {
+    private final List<Integer> numbers;
     private final int bonusNumber;
 
     public WinningLotto(List<Integer> numbers, int bonusNumber) {
-        super(numbers);
+        this.numbers = numbers;
         this.bonusNumber = bonusNumber;
+    }
+
+    public List<Integer> getFirstPrizeNumbers() {
+        return numbers;
     }
 
     public int getBonusNumber() {
