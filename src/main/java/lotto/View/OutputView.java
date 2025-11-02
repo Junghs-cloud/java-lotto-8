@@ -20,7 +20,6 @@ public class OutputView {
     }
 
 
-    /*
     public void printLottoResults(Map<LottoRank, Integer> lottoRankResults, double totalRateOfReturn) {
         System.out.println("당첨 통계");
         System.out.println("---");
@@ -40,6 +39,5 @@ public class OutputView {
         System.out.println(lottoRankToPrint.getDescription() + " - " + count+"개");
     }
 
-     */
 
 }
