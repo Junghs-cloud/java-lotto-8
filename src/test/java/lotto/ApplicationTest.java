@@ -13,7 +13,7 @@ class ApplicationTest extends NsTest {
     private static final String ERROR_MESSAGE = "[ERROR]";
 
     @Test
-    void testAll() {
+    void 기능_테스트() {
         assertRandomUniqueNumbersInRangeTest(
                 () -> {
                     run("8000", "1,2,3,4,5,6", "7");
@@ -80,7 +80,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void testPurchaseAmountNotInt() {
+    void 예외_테스트() {
         assertSimpleTest(() -> {
             runException("1000j");
             assertThat(output()).contains(ERROR_MESSAGE);
@@ -104,7 +104,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void testWinningLottoSizeNotCorrect() {
+    void testWinningLottoNotSize6() {
         assertSimpleTest(() -> {
             runException("3000", "1,2,3,4,5,6,7");
             assertThat(output()).contains(ERROR_MESSAGE);
