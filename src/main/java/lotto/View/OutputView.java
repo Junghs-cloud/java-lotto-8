@@ -19,18 +19,12 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printLottoResults(Map<LottoRank, Integer> lottoRankResults, double totalRateOfReturn) {
+    public void printLottoResults(Map<LottoRank, Integer> lottoRankResults) {
         System.out.println("당첨 통계");
         System.out.println("---");
         List<LottoRank> printOrder = Arrays.asList(LottoRank.Fifth, LottoRank.Fourth, LottoRank.Third, LottoRank.Second, LottoRank.First);
         for (LottoRank lottoRank: printOrder)
             printEachLottoRankResult(lottoRankResults, lottoRank);
-        String formattedTotalRateOfReturn = formatWithCommas(totalRateOfReturn);
-        System.out.println(STR."총 수익률은 \{formattedTotalRateOfReturn}%입니다.");
-    }
-
-    private String formatWithCommas(double totalRateOfReturn) {
-        return String.format(String.valueOf(totalRateOfReturn));
     }
 
     private void printEachLottoRankResult(Map<LottoRank, Integer> lottoRankResults, LottoRank lottoRankToPrint) {

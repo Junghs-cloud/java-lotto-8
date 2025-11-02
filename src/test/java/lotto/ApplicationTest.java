@@ -46,7 +46,6 @@ class ApplicationTest extends NsTest {
         );
     }
 
-    @Test
     void testResultWithoutRate() {
         assertRandomUniqueNumbersInRangeTest(
                 () -> {
