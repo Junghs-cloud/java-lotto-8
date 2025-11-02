@@ -6,8 +6,6 @@ public class Lotto {
     private final List<Integer> numbers;
 
     public static final int COST = 1000;
-    public static final int MIN_VALUE = 1;
-    public static final int MAX_VALUE = 45;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
@@ -20,7 +18,5 @@ public class Lotto {
         }
     }
 
-    public boolean checkIfMatchBonusNumber(int bonusNumber) {
-        return numbers.contains(bonusNumber);
-    }
+    // TODO: 추가 기능 구현
 }
