@@ -18,8 +18,8 @@ public class RandomLottoMaker {
 
     private static Lotto makeLotto() {
         List<Integer> lottoNumbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
-        List<Integer> sortedLottoNumbers = lottoNumbers.stream().sorted().toList();
-        return new Lotto(sortedLottoNumbers);
+        //List<Integer> sortedLottoNumbers = lottoNumbers.stream().sorted().toList();
+        return new Lotto(lottoNumbers);
     }
 
 }
