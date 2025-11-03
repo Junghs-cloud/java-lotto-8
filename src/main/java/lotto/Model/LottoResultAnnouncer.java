@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import static java.lang.Math.round;
 
 public class LottoResultAnnouncer {
-    private List<Lotto> releasedLottos;
-    private WinningLotto winningLotto;
+    private final List<Lotto> releasedLottos;
+    private final WinningLotto winningLotto;
 
     public LottoResultAnnouncer(List<Lotto> releasedLottos, WinningLotto winningLotto) {
         this.releasedLottos = releasedLottos;

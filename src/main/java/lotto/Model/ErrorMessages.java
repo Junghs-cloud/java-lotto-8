@@ -1,7 +1,5 @@
 package lotto.Model;
 
-import lotto.Lotto;
-
 public class ErrorMessages {
     public final static String INPUT_NOT_INT = "[ERROR] 입력 값은 정수여야 합니다.";
     public final static String INPUT_NOT_DIVIDE_LOTTO_COST = "[ERROR] 입력 값은 1000으로 나누어 떨어져야 합니다.";

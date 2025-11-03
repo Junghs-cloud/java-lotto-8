@@ -21,12 +21,24 @@ public class LottoController {
     private final static String LOTTO_SPLIT_DELIMITER = ",";
 
     public void execute() {
+        issueLottos();
+        WinningLotto winningLotto = issueWinningLotto();
+        calculateLottoResultAndPrint(winningLotto);
+    }
+
+    private void issueLottos() {
         int purchaseAmount = getPurchaseInput();
         int lottoAmount = purchaseAmount / Lotto.COST;
         releaseLottos(lottoAmount);
+    }
+
+    private WinningLotto issueWinningLotto() {
         Lotto firstPrizeLotto = getFirstPrizeLotto();
         int bonusNumber = getBonusNumber(firstPrizeLotto);
-        WinningLotto winningLotto = new WinningLotto(firstPrizeLotto.getNumbers(), bonusNumber);
+        return new WinningLotto(firstPrizeLotto.getNumbers(), bonusNumber);
+    }
+
+    private void calculateLottoResultAndPrint(WinningLotto winningLotto) {
         LottoResultAnnouncer lottoResultAnnouncer = new LottoResultAnnouncer(releasedLottos, winningLotto);
         Map<LottoRank, Integer> result = lottoResultAnnouncer.getLottoRankResults();
         double totalRateOfReturn = lottoResultAnnouncer.calculateTotalRateOfReturn(result);
